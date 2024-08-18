@@ -14,10 +14,17 @@ import user6 from "../../../../assets/Users/user6.jfif"
 
 
 
+
 const Reviews = () => {
     return (
-        <section>
-          
+        <section className='bg-[#F7F7F7] p-5 my-5'>
+           <div className='text-center font-poppins space-y-3 my-10'>
+             <h1 className='text-4xl text-[#333333]'>Testimonials!</h1>
+             <h4 className='text-2xl text-[#9D9D9D]'>See how our platform has helped people just like you achieve their goals.</h4>
+             <div className='bg-[#EBEBEB] w-[300px] md:w-[700px] mx-auto px-2 py-2 rounded-md text-[#939393]'>
+             <p>Hear from our community of users who have found success through our platform.</p>
+             </div>
+           </div>
             <Swiper
                 slidesPerView={1}
                 spaceBetween={30}
