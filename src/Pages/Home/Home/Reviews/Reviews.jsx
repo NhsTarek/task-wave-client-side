@@ -3,6 +3,14 @@ import 'swiper/css/pagination';
 import 'swiper/css';
 import { Pagination } from 'swiper/modules';
 
+
+import user1 from "../../../../assets/Users/user1.jpg"
+import user2 from "../../../../assets/Users/user2.jfif"
+import user3 from "../../../../assets/Users/user3.jfif"
+import user4 from "../../../../assets/Users/user4.jfif"
+import user5 from "../../../../assets/Users/user5.jfif"
+import user6 from "../../../../assets/Users/user6.jfif"
+
 const Reviews = () => {
     return (
         <Swiper
@@ -31,7 +39,7 @@ const Reviews = () => {
             <SwiperSlide>
                 <div className="p-6 rounded-lg shadow-lg flex flex-col items-center text-center h-full min-h-[350px] bg-gradient-to-r from-blue-500 to-green-500 text-white font-poppins">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user1}
                         alt="Jane Doe"
                         className="w-24 h-24 rounded-full mb-4 border-4 border-white"
                     />
@@ -42,7 +50,7 @@ const Reviews = () => {
             <SwiperSlide>
                 <div className="p-6 rounded-lg shadow-lg flex flex-col items-center text-center h-full min-h-[350px] bg-gradient-to-r from-blue-500 to-green-500 text-white font-poppins">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user2}
                         alt="John Smith"
                         className="w-24 h-24 rounded-full mb-4 border-4 border-white"
                     />
@@ -53,7 +61,7 @@ const Reviews = () => {
             <SwiperSlide>
                 <div className="p-6 rounded-lg shadow-lg flex flex-col items-center text-center h-full min-h-[350px] bg-gradient-to-r from-blue-500 to-green-500 text-white font-poppins">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user3}
                         alt="Alice Johnson"
                         className="w-24 h-24 rounded-full mb-4 border-4 border-white"
                     />
@@ -64,7 +72,7 @@ const Reviews = () => {
             <SwiperSlide>
                 <div className="p-6 rounded-lg shadow-lg flex flex-col items-center text-center h-full min-h-[350px] bg-gradient-to-r from-blue-500 to-green-500 text-white font-poppins">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user5}
                         alt="Michael Brown"
                         className="w-24 h-24 rounded-full mb-4 border-4 border-white"
                     />
@@ -75,7 +83,7 @@ const Reviews = () => {
             <SwiperSlide>
                 <div className="p-6 rounded-lg shadow-lg flex flex-col items-center text-center h-full min-h-[350px] bg-gradient-to-r from-blue-500 to-green-500 text-white font-poppins">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user4}
                         alt="Emily Davis"
                         className="w-24 h-24 rounded-full mb-4 border-4 border-white"
                     />
@@ -86,7 +94,7 @@ const Reviews = () => {
             <SwiperSlide>
                 <div className="p-6 rounded-lg shadow-lg flex flex-col items-center text-center h-full min-h-[350px] bg-gradient-to-r from-blue-500 to-green-500 text-white font-poppins">
                     <img
-                        src="https://via.placeholder.com/150"
+                        src={user6}
                         alt="Daniel Garcia"
                         className="w-24 h-24 rounded-full mb-4 border-4 border-white"
                     />
