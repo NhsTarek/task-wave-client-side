@@ -4,7 +4,7 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 const Features = () => {
     return (
-        <section className="dark:bg-gray-100 dark:text-gray-800">
+        <section className="dark:bg-gray-100 dark:text-gray-800 my-20">
             <div className="container mx-auto flex flex-col p-6">
                 <h2 className="py-4 text-4xl font-bold text-center font-poppins text-[#333333]">Key Features</h2>
                 <div className="divide-y dark:divide-gray-300">

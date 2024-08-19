@@ -9,7 +9,7 @@ const TopEarners = () => {
     const [swiperRef, setSwiperRef] = useState(null);
 
     return (
-        <section>
+        <section className='my-20'>
             <div className='text-center font-poppins space-y-3 my-10'>
                 <h1 className='text-4xl text-[#333333]'>Top Earners</h1>
                 <h4 className='text-2xl text-[#9D9D9D]'>
@@ -34,7 +34,7 @@ const TopEarners = () => {
                     },
                 }}
                 centeredSlides={true}
-                spaceBetween={20}
+                spaceBetween={30}
                 autoplay={{
                     delay: 3000,
                     disableOnInteraction: false,
@@ -43,7 +43,7 @@ const TopEarners = () => {
                 modules={[Navigation, Autoplay]}
                 className="mySwiper"
             >
-                <SwiperSlide>
+                <SwiperSlide className="flex justify-center">
                     <div className="card bg-[#F4F4F4] w-full max-w-xs md:max-w-sm lg:max-w-md shadow-lg rounded-lg p-6 text-center shadow-[#007BFF]/30">
                         <div className="flex justify-center">
                             <img
@@ -65,7 +65,7 @@ const TopEarners = () => {
                         </div>
                     </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="flex justify-center">
                     <div className="card bg-[#F4F4F4] w-full max-w-xs md:max-w-sm lg:max-w-md shadow-lg rounded-lg p-6 text-center shadow-[#007BFF]/30">
                         <div className="flex justify-center">
                             <img
@@ -87,7 +87,7 @@ const TopEarners = () => {
                         </div>
                     </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="flex justify-center">
                     <div className="card bg-[#F4F4F4] w-full max-w-xs md:max-w-sm lg:max-w-md shadow-lg rounded-lg p-6 text-center shadow-[#007BFF]/30">
                         <div className="flex justify-center">
                             <img
@@ -109,7 +109,7 @@ const TopEarners = () => {
                         </div>
                     </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="flex justify-center">
                     <div className="card bg-[#F4F4F4] w-full max-w-xs md:max-w-sm lg:max-w-md shadow-lg rounded-lg p-6 text-center shadow-[#007BFF]/30">
                         <div className="flex justify-center">
                             <img
@@ -131,7 +131,7 @@ const TopEarners = () => {
                         </div>
                     </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="flex justify-center">
                     <div className="card bg-[#F4F4F4] w-full max-w-xs md:max-w-sm lg:max-w-md shadow-lg rounded-lg p-6 text-center shadow-[#007BFF]/30">
                         <div className="flex justify-center">
                             <img
@@ -153,7 +153,7 @@ const TopEarners = () => {
                         </div>
                     </div>
                 </SwiperSlide>
-                <SwiperSlide>
+                <SwiperSlide className="flex justify-center">
                     <div className="card bg-[#F4F4F4] w-full max-w-xs md:max-w-sm lg:max-w-md shadow-lg rounded-lg p-6 text-center shadow-[#007BFF]/30">
                         <div className="flex justify-center">
                             <img
