@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 import logo from "../../../assets/taskwave2.png"
 
 const NavBar = () => {
 
     const navOptions = <>
 
-        <li><a>Login</a></li>
-        <li><a>Register</a></li>
-        <li><a>Watch Demo</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/">Watch Demo</Link></li>
+        <li><Link to="/login">Login</Link></li>
 
     </>
     return (
