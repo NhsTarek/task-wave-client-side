@@ -4,12 +4,13 @@ const NavBar = () => {
 
     const navOptions = <>
 
-        <li><a>Item 1</a></li>
-        <li><a>Item 3</a></li>
+        <li><a>Login</a></li>
+        <li><a>Register</a></li>
+        <li><a>Watch Demo</a></li>
 
     </>
     return (
-        <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white max-w-screen-xl">
+        <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white max-w-screen-xl font-poppins">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
