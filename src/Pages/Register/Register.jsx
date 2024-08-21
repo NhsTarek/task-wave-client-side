@@ -1,40 +1,60 @@
 import logo from "../../assets/taskwave2.png";
 import banner from "../../assets/login/login.jfif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
-    const {createUser} = useContext(AuthContext)
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
+
 
     const onSubmit = (data) => {
         console.log(data);
         createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-        })
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log('user profile info updated');
+                        reset();
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "User registered successfully",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate('/');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            })
     };
 
-    
+
 
     return (
         <div className="min-h-screen flex">
             {/* Form Section - 40% width */}
             <div className="w-full lg:w-2/5 flex items-center justify-center bg-base-100">
-                <div className="max-w-md w-full p-8 shadow-2xl">
-                    <div className="text-center mb-6">
+                <div className="max-w-md w-full p-6 shadow-2xl">
+                    <div className="text-center mb-4">
                         <a className="btn btn-ghost w-32 md:w-36 lg:w-44 mx-auto">
                             <img src={logo} alt="Logo" />
                         </a>
-                        <h2 className="text-2xl font-bold mt-4">Register an Account</h2>
+                        <h2 className="text-2xl font-bold mt-2">Register an Account</h2>
                         <p className="mt-2">Please fill all the required form to create an account in TaskWave.</p>
                     </div>
                     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -43,13 +63,27 @@ const Register = () => {
                                 <span className="label-text">Name</span>
                             </label>
                             <input
-                                type="name"
+                                type="text"
                                 {...register("name", { required: true })}
+                                name="name"
                                 placeholder="name"
                                 className="input input-bordered"
                                 required
                             />
                             {errors.name && <span className="text-red-600">Name is required</span>}
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">PhotoURL</span>
+                            </label>
+                            <input
+                                type="text"
+                                {...register("photoURL", { required: true })}
+                                placeholder="Photo URL"
+                                className="input input-bordered"
+                                required
+                            />
+                            {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">

@@ -15,6 +15,7 @@ const NavBar = () => {
     const navOptions = (
         <>
             <li><Link to="/">Home</Link></li>
+            <li><Link to="/secret">Secrets</Link></li>
             {!user && <li><Link to="/">Watch Demo</Link></li>}
         </>
     );
