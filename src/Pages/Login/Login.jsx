@@ -2,6 +2,15 @@ import banner from "../../assets/login/login.jfif";
 import logo from "../../assets/taskwave2.png";
 
 const Login = () => {
+
+   const handleLogin = event =>{
+     event.preventDefault();
+     const form = event.target;
+     const email = form.email.value;
+     const password = form.password.value;
+     console.log(email, password);
+
+    }
     return (
         <div className="min-h-screen flex">
             {/* Banner Section - 60% width */}
@@ -19,24 +28,22 @@ const Login = () => {
                         <h2 className="text-2xl font-bold mt-4">Log in Account</h2>
                         <p className="mt-2">Please log in to your account to access all your data.</p>
                     </div>
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleLogin}>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" placeholder="email" className="input input-bordered" required />
+                            <input type="email" name="email" placeholder="email" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" placeholder="password" className="input input-bordered" required />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
+                            <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary w-full">Login</button>
+                           
+                              <input className="btn btn-primary w-full" type="submit" value="Login" />
                         </div>
                     </form>
                     <div className="flex items-center w-full my-4">
