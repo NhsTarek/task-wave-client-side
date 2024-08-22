@@ -1,6 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 
 
 const TaskList = () => {
+
+
+    const {data, isLoading} = useQuery({
+        queryKey:['task'],
+        queryFn: async () => {},
+    });
     return (
         <section>
             <div className='text-center font-poppins space-y-3 mt-5 mb-10'>
