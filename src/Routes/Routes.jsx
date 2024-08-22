@@ -7,6 +7,8 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
 import Secret from "../Pages/Shared/Secret";
+import Dashboard from "../Layout/Dashboard";
+import TaskList from "../Pages/Dashboard/TaskList/TaskList";
 
 
 
@@ -34,7 +36,17 @@ import Secret from "../Pages/Shared/Secret";
         {
           path: 'secret',
           element: <PrivateRoutes><Secret></Secret></PrivateRoutes>,
-        }
+        },
       ]
     },
+    {
+      path:"dashboard",
+      element:<Dashboard></Dashboard>,
+      children: [
+         {
+          path:"tasklist",
+          element: <TaskList></TaskList>
+         }
+      ]
+    }
   ]);

@@ -16,6 +16,7 @@ const NavBar = () => {
         <>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/secret">Secrets</Link></li>
+            <li><Link to="/dashboard/tasklist">TaskList</Link></li>
             {!user && <li><Link to="/">Watch Demo</Link></li>}
         </>
     );
