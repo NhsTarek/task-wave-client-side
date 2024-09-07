@@ -1,10 +1,15 @@
 import logo from "../../assets/taskwave2.png";
 import banner from "../../assets/login/login.jfif";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosCommon from "../../hooks/useAxiosCommon";
+import { FaSpinner } from "react-icons/fa";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
     const {
@@ -14,37 +19,87 @@ const Register = () => {
         formState: { errors },
     } = useForm();
 
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, signInWithGoogle, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    const axiosCommon = useAxiosCommon();
 
-
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
-        createUser(data.email, data.password)
-            .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
-                updateUserProfile(data.name, data.photoURL)
-                    .then(() => {
-                        console.log('user profile info updated');
-                        reset();
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "User registered successfully",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        navigate('/');
+
+        // Image upload to imgbb
+        const formData = new FormData();
+        formData.append("image", data.image[0]); // Using FormData to handle the file upload
+
+        try {
+            setLoading(true)
+            const res = await axiosCommon.post(image_hosting_api, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            if (res.data.success) {
+                const imgUrl = res.data.data.url;
+
+                // Create user and update profile with the uploaded image URL
+                createUser(data.email, data.password)
+                    .then((result) => {
+                        const loggedUser = result.user;
+                        console.log(loggedUser);
+                        updateUserProfile(data.name, imgUrl) // Use the image URL for the profile
+                            .then(() => {
+                                console.log("User profile info updated");
+                                reset();
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: "User registered successfully",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                });
+                                navigate(from, { replace: true });
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.log(error);
-                    })
-            })
+                    });
+            }
+        } catch (error) {
+            console.error("Image upload failed:", error);
+        }
     };
 
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle();
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "User registered successfully",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            navigate(from, { replace: true });
 
-
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+    if(loading){
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-center text-4xl">
+                    <FaSpinner className="animate-spin" style={{ fontSize: '3rem' }} />
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="min-h-screen flex">
             {/* Form Section - 40% width */}
@@ -55,7 +110,9 @@ const Register = () => {
                             <img src={logo} alt="Logo" />
                         </a>
                         <h2 className="text-2xl font-bold mt-2">Register an Account</h2>
-                        <p className="mt-2">Please fill all the required form to create an account in TaskWave.</p>
+                        <p className="mt-2">
+                            Please fill all the required form to create an account in TaskWave.
+                        </p>
                     </div>
                     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-control">
@@ -65,26 +122,24 @@ const Register = () => {
                             <input
                                 type="text"
                                 {...register("name", { required: true })}
-                                name="name"
-                                placeholder="name"
+                                placeholder="Name"
                                 className="input input-bordered"
                                 required
                             />
                             {errors.name && <span className="text-red-600">Name is required</span>}
                         </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">PhotoURL</span>
-                            </label>
+                        <label className="form-control w-full max-w-xs">
+                            <div className="label">
+                                <span className="label-text">Pick a Profile picture</span>
+                            </div>
                             <input
-                                type="text"
-                                {...register("photoURL", { required: true })}
-                                placeholder="Photo URL"
-                                className="input input-bordered"
+                                {...register("image", { required: true })}
+                                type="file"
+                                className="file-input file-input-bordered w-full max-w-xs"
                                 required
                             />
-                            {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
-                        </div>
+                            {errors.image && <span className="text-red-600">Profile picture is required</span>}
+                        </label>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -92,7 +147,7 @@ const Register = () => {
                             <input
                                 type="email"
                                 {...register("email", { required: true })}
-                                placeholder="email"
+                                placeholder="Email"
                                 className="input input-bordered"
                                 required
                             />
@@ -108,9 +163,9 @@ const Register = () => {
                                     required: true,
                                     minLength: 6,
                                     maxLength: 20,
-                                    pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/
+                                    pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/,
                                 })}
-                                placeholder="password"
+                                placeholder="Password"
                                 className="input input-bordered"
                                 required
                             />
@@ -129,8 +184,17 @@ const Register = () => {
                                 </p>
                             )}
                         </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Role</span>
+                            </label>
+                            <select {...register("role", { required: true })} className="select select-bordered w-full">
+                                <option value="worker">Worker</option>
+                                <option value="taskCreator">TaskCreator</option>
+                            </select>
+                        </div>
                         <div className="form-control mt-6">
-                            <input className="btn btn-primary w-full" type="submit" value="Register" />
+                            <input disabled={loading} className="btn btn-primary w-full" type="submit" value="Register" />
                         </div>
                     </form>
                     <div className="flex items-center w-full my-4">
@@ -139,6 +203,7 @@ const Register = () => {
                         <hr className="w-full dark:text-gray-600" />
                     </div>
                     <button
+                        onClick={handleGoogleSignIn}
                         aria-label="Login with Google"
                         type="button"
                         className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-600 focus:dark:ring-violet-600"

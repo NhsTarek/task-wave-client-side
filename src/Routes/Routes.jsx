@@ -9,6 +9,10 @@ import PrivateRoutes from "./PrivateRoutes";
 import Secret from "../Pages/Shared/Secret";
 import Dashboard from "../Layout/Dashboard";
 import TaskList from "../Pages/Dashboard/TaskList/TaskList";
+import TaskDetails from "../Pages/TaskDetails/TaskDetails";
+import MySubmissions from "../Pages/Dashboard/MySubmissions/MySubmissions";
+import Withdrawals from "../Pages/Dashboard/Withdrawals/Withdrawals";
+import UserHome from "../Pages/Dashboard/UserHome/UserHome";
 
 
 
@@ -26,17 +30,20 @@ import TaskList from "../Pages/Dashboard/TaskList/TaskList";
 
         },
         {
-          path: 'login',
+          path: '/login',
           element: <Login></Login>,
         },
         {
-          path: 'register',
+          path: '/register',
           element: <Register></Register>,
         },
         {
-          path: 'secret',
+          path: '/secret',
           element: <PrivateRoutes><Secret></Secret></PrivateRoutes>,
         },
+       
+        
+        
       ]
     },
     {
@@ -44,9 +51,26 @@ import TaskList from "../Pages/Dashboard/TaskList/TaskList";
       element:<Dashboard></Dashboard>,
       children: [
          {
+          path: "/dashboard",
+          element: <UserHome></UserHome>,
+         },
+         {
           path:"tasklist",
           element: <TaskList></TaskList>
+         },
+         {
+          path:"tasklist/taskdetails/:id",
+          element: <TaskDetails></TaskDetails>
+         },
+         {
+          path:"submissions",
+          element: <MySubmissions></MySubmissions>
+         },
+         {
+           path:"withdrawals",
+           element:<Withdrawals></Withdrawals>
          }
+         
       ]
     }
   ]);

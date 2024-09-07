@@ -1,13 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import TaskCard from "./TaskCard";
 
 
 const TaskList = () => {
 
+    const axiosSecure = useAxiosSecure();
 
-    const {data, isLoading} = useQuery({
-        queryKey:['task'],
-        queryFn: async () => {},
+    const { data: tasks = [], isLoading } = useQuery({
+        queryKey: ['tasks'],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get('/tasks')
+            // console.log(data);
+            return data;
+        },
+
     });
+
+    if(isLoading) return <span className="loading loading-dots loading-lg"></span>
+
+    
     return (
         <section>
             <div className='text-center font-poppins space-y-3 mt-5 mb-10'>
@@ -17,8 +29,18 @@ const TaskList = () => {
                     <p>Once you select a job click view details, read requirements carefully & get started!</p>
                 </div>
             </div>
+           <div className=" grid gap-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mb-10">
+             {
+                tasks.map(task =>(
+                    <TaskCard
+                    key={task._id}
+                    task={task}
+                    
+                    ></TaskCard>
+                ))
+             }
+           </div>
 
-            
         </section>
     );
 };

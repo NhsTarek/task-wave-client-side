@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = () => {
-    const { signIn } = useContext(AuthContext);
+    const { signIn, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -33,9 +33,27 @@ const Login = () => {
                 navigate(from, { replace: true });
             })
             .catch((error) => {
-                console.error(error);
+                alert(error);
             });
     };
+
+    const handleGoogleLogin = async () =>{
+        try {
+            await signInWithGoogle();
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "User logged in successful",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            navigate(from, { replace: true });
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <div className="h-screen flex">
@@ -90,6 +108,7 @@ const Login = () => {
                         <hr className="w-full dark:text-gray-600" />
                     </div>
                     <button
+                    onClick={handleGoogleLogin}
                         aria-label="Login with Google"
                         type="button"
                         className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-600 focus:dark:ring-violet-600"
