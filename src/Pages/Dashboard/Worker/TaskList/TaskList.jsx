@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 import TaskCard from "./TaskCard";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+
 
 
 const TaskList = () => {
@@ -11,7 +13,7 @@ const TaskList = () => {
         queryKey: ['tasks'],
         queryFn: async () => {
             const { data } = await axiosSecure.get('/tasks')
-            // console.log(data);
+            console.log(data);
             return data;
         },
 

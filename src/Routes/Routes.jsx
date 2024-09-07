@@ -8,11 +8,13 @@ import Register from "../Pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
 import Secret from "../Pages/Shared/Secret";
 import Dashboard from "../Layout/Dashboard";
-import TaskList from "../Pages/Dashboard/TaskList/TaskList";
+import TaskList from "../Pages/Dashboard/Worker/TaskList/TaskList";
+import MySubmissions from "../Pages/Dashboard/Worker/MySubmissions/MySubmissions";
+import Withdrawals from "../Pages/Dashboard/Worker/Withdrawals/Withdrawals";
+import UserHome from "../Pages/Dashboard/Worker/UserHome/UserHome";
 import TaskDetails from "../Pages/TaskDetails/TaskDetails";
-import MySubmissions from "../Pages/Dashboard/MySubmissions/MySubmissions";
-import Withdrawals from "../Pages/Dashboard/Withdrawals/Withdrawals";
-import UserHome from "../Pages/Dashboard/UserHome/UserHome";
+import AddTasks from "../Pages/Dashboard/TaskCreator/AddTasks";
+
 
 
 
@@ -47,11 +49,11 @@ import UserHome from "../Pages/Dashboard/UserHome/UserHome";
       ]
     },
     {
-      path:"dashboard",
+      path:"/dashboard",
       element:<Dashboard></Dashboard>,
       children: [
          {
-          path: "/dashboard",
+          path:"/dashboard",
           element: <UserHome></UserHome>,
          },
          {
@@ -69,6 +71,10 @@ import UserHome from "../Pages/Dashboard/UserHome/UserHome";
          {
            path:"withdrawals",
            element:<Withdrawals></Withdrawals>
+         },
+         {
+           path:"add-task",
+           element:<AddTasks></AddTasks>
          }
          
       ]

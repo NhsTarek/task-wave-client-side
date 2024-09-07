@@ -1,48 +1,20 @@
-import { FaCheckDouble, FaDollarSign, FaHome, FaTasks } from "react-icons/fa";
-import { NavLink, Outlet } from "react-router-dom";
-import Header from "../Pages/Dashboard/TaskList/Header/Header";
-import DashboardFooter from "../Pages/Dashboard/DashboardFooter/DashboardFooter";
+
+import {  Outlet } from "react-router-dom";
+
+
+import Sidebar from "../components/Dashboard/Sidebar/Sidebar";
 
 const Dashboard = () => {
     return (
-        <div className="flex">
-            <div className="w-60 min-h-screen bg-[#1B5E20] text-white font-poppins">
-
-                <ul className="menu p-4">
-                    <li>
-                   
-                        <NavLink to='/dashboard'>
-                        <FaHome />
-                        Home
-                        </NavLink>
-                    </li>
-                    <li>
-                   
-                        <NavLink to='/dashboard/tasklist'>
-                        <FaTasks />
-                        TaskList
-                        </NavLink>
-                    </li>
-                    <li>
-                   
-                        <NavLink to='/dashboard/submissions'>
-                        <FaCheckDouble />
-                        My Submissions
-                        </NavLink>
-                    </li>
-                    <li>
-                   
-                        <NavLink to='/dashboard/withdrawals'>
-                        <FaDollarSign />
-                        Withdrawals
-                        </NavLink>
-                    </li>
-                </ul>
+        <div className="relative min-h-screen md:flex">
+            <div>
+              <Sidebar></Sidebar>
+                
             </div>
-            <div className="flex-1">
-                <Header></Header>
+            <div className="flex-1 md:ml-64">
+                
                 <Outlet></Outlet>
-                <DashboardFooter></DashboardFooter>
+               
             </div>
         </div>
     );
