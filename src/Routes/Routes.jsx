@@ -14,6 +14,7 @@ import Withdrawals from "../Pages/Dashboard/Worker/Withdrawals/Withdrawals";
 import UserHome from "../Pages/Dashboard/Worker/UserHome/UserHome";
 import TaskDetails from "../Pages/TaskDetails/TaskDetails";
 import AddTasks from "../Pages/Dashboard/TaskCreator/AddTasks";
+import MyTasks from "../Pages/Dashboard/TaskCreator/MyTasks";
 
 
 
@@ -75,6 +76,10 @@ import AddTasks from "../Pages/Dashboard/TaskCreator/AddTasks";
          {
            path:"add-task",
            element:<AddTasks></AddTasks>
+         },
+         {
+           path:"my-tasks",
+           element:<MyTasks></MyTasks>
          }
          
       ]
