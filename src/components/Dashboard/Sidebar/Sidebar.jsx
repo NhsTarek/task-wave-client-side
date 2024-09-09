@@ -9,7 +9,7 @@ import { AiOutlineBars } from 'react-icons/ai'
 import { NavLink } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
-import { FaCheckDouble, FaHome, FaTasks } from 'react-icons/fa'
+import { FaCheckDouble, FaHome, FaPlus, FaTasks } from 'react-icons/fa'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
@@ -121,9 +121,21 @@ const Sidebar = () => {
                   }`
                 }
               >
-                <FaCheckDouble className='w-5 h-5' />
+                <FaPlus className='w-5 h-5' />
 
                 <span className='mx-4 font-medium'>Add New Task</span>
+              </NavLink>
+              <NavLink
+                to='/dashboard/my-tasks'
+                className={({ isActive }) =>
+                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
+                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
+                  }`
+                }
+              >
+                <FaTasks className='w-5 h-5' />
+
+                <span className='mx-4 font-medium'>My Tasks</span>
               </NavLink>
             </nav>
           </div>

@@ -1,6 +1,34 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+import MyTasksRows from "../TableRows/MyTasksRows";
 
 
 const MyTasks = () => {
+
+  const {user} = useAuth();
+
+  const axiosSecure = useAxiosSecure();
+  
+
+  const { data: tasks = [], isLoading, refetch } = useQuery({
+    queryKey: ['my-tasks', user?.email],
+    queryFn: async () => {
+        const { data } = await axiosSecure.get(`/my-tasks/${user?.email}`)
+        console.log(data);
+        return data;
+    },
+
+});
+
+// Handle Delete
+
+const handleDelete = id =>{
+  console.log(id);
+
+}
+
+if(isLoading) return <span className="loading loading-dots loading-lg"></span>
     return (
         <div className='container mx-auto px-4 sm:px-8'>
         <div className='py-8'>
@@ -43,7 +71,18 @@ const MyTasks = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* Room row data */}
+                  {
+                    tasks.map(task => 
+                    <MyTasksRows 
+                    key={task._id}
+                    task={task}
+                    refetch={refetch}
+                    handleDelete={handleDelete}
+                    
+                    ></MyTasksRows>)
+                  }
+                  
+
 
                
                 </tbody>
