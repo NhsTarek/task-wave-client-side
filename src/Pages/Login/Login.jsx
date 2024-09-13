@@ -4,6 +4,7 @@ import logo from "../../assets/taskwave2.png";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { axiosCommon } from "../../hooks/useAxiosCommon";
 
 const Login = () => {
     const { signIn, signInWithGoogle } = useContext(AuthContext);
@@ -37,23 +38,41 @@ const Login = () => {
             });
     };
 
-    const handleGoogleLogin = async () =>{
-        try {
-            await signInWithGoogle();
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "User logged in successful",
-                showConfirmButton: false,
-                timer: 1500,
+    const handleGoogleLogin = () => {
+        signInWithGoogle()
+            .then((result) => {
+                const user = result.user;
+                const userInfo = {
+                    email : result.user?.email,
+                    display_name : result.user?.displayName,
+                    photo_url : result.user?.photoURL,
+                    role : 'worker',
+                    coin: 10
+                }
+                axiosCommon.post('/users', userInfo)
+                .then(res =>{
+                    console.log(res.data);
+                })
+                console.log(user);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "User logged in successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong with Google login!",
+                });
             });
-            navigate(from, { replace: true });
+    };
 
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
 
     return (
         <div className="h-screen flex">

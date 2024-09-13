@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../Firebase/firebase.config";
+// import axios from "axios";
 
 export const AuthContext = createContext(null)
 
@@ -42,10 +43,29 @@ const AuthProvider = ({children}) => {
           });
     }
 
+
+    // Save user
+
+    // const saveUser = async user =>{
+
+    //     const currentUser = {
+    //         email : user?.email,
+    //         role: 'worker',
+    //         status : 'verified',
+    //     }
+    //     const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/user`, currentUser);
+    //     console.log(data);
+    //     return data;
+    // }
+
     useEffect(() =>{
         const unsubscribe = onAuthStateChanged(auth, currentUser =>{
             setUser(currentUser);
-            console.log('current user', currentUser);
+            if(currentUser){
+                console.log('current user', currentUser);
+            // saveUser(currentUser)
+            }
+            
             setLoading(false)
         })
         return () => {

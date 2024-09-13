@@ -50,16 +50,33 @@ const Register = () => {
                         console.log(loggedUser);
                         updateUserProfile(data.name, imgUrl) // Use the image URL for the profile
                             .then(() => {
-                                console.log("User profile info updated");
-                                reset();
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: "User registered successfully",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                });
-                                navigate(from, { replace: true });
+                                // Create user in the database
+                                const userInfo = {
+                                    display_name : data.name,
+                                    email : data.email,
+                                    photo_url : imgUrl,
+                                    role : data.role,
+                                    coin : data.role === 'worker' ? 10 : 50
+
+
+                                }
+
+                                axiosCommon.post('/users', userInfo)
+                                .then(res =>{
+                                    if(res.data.insertedId){
+                                        console.log("User profile info updated");
+                                        reset();
+                                        Swal.fire({
+                                            position: "center",
+                                            icon: "success",
+                                            title: "User registered successfully",
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                        });
+                                        navigate(from, { replace: true });
+                                    }
+                                })
+                              
                             })
                             .catch((error) => {
                                 console.log(error);
@@ -74,23 +91,40 @@ const Register = () => {
         }
     };
 
-    const handleGoogleSignIn = async () => {
-        try {
-            await signInWithGoogle();
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "User registered successfully",
-                showConfirmButton: false,
-                timer: 1500,
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then((result) => {
+                const user = result.user;
+                const userInfo = {
+                    email : result.user?.email,
+                    display_name : result.user?.displayName,
+                    photo_url : result.user?.photoURL,
+                    role : 'worker',
+                    coin: 10
+                }
+                axiosCommon.post('/users', userInfo)
+                .then(res =>{
+                    console.log(res.data);
+                })
+                console.log(user);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "User logged in successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong with Google login!",
+                });
             });
-            navigate(from, { replace: true });
-
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
+    };
     if(loading){
         return (
             <div className="flex items-center justify-center min-h-screen">

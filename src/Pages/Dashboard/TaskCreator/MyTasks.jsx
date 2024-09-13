@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import MyTasksRows from "../TableRows/MyTasksRows";
+import Swal from "sweetalert2";
 
 
 const MyTasks = () => {
@@ -23,8 +24,32 @@ const MyTasks = () => {
 
 // Handle Delete
 
-const handleDelete = id =>{
+
+const {mutateAsync} = useMutation({
+  mutationFn : async id =>{
+    const {data} = await axiosSecure.delete(`/task/${id}`);
+    return data;
+  },
+  onSuccess: data =>{
+    console.log(data);
+    refetch();
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Task deleted successfully",
+      showConfirmButton: false,
+      timer: 1500,
+  });
+  }
+})
+
+const handleDelete = async id =>{
   console.log(id);
+  try{
+    await mutateAsync(id)
+  }catch(err){
+    console.log(err);
+  }
 
 }
 
@@ -76,7 +101,6 @@ if(isLoading) return <span className="loading loading-dots loading-lg"></span>
                     <MyTasksRows 
                     key={task._id}
                     task={task}
-                    refetch={refetch}
                     handleDelete={handleDelete}
                     
                     ></MyTasksRows>)

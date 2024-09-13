@@ -31,7 +31,7 @@ const TaskList = () => {
                     <p>Once you select a job click view details, read requirements carefully & get started!</p>
                 </div>
             </div>
-           <div className=" grid gap-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mb-10">
+           <div className=" grid gap-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 mb-10">
              {
                 tasks.map(task =>(
                     <TaskCard

@@ -2,11 +2,19 @@ import { Link } from "react-router-dom";
 
 
 const TaskCard = ({ task }) => {
-    const { task_title,creator_name, completion_date, payable_amount,task_quantity,_id  } = task;
+    const {
+        task_title,
+        task_image_url,
+        completion_date,
+        payable_amount,
+        task_count,
+        _id,
+        taskCreator: { creator_name }, 
+      } = task;
     return (
-        <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+        <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 font-poppins">
             {/* Image Section */}
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Gmail" className="w-full h-32 object-contain p-4" />
+            <img src={task_image_url} alt="Gmail" className="w-full h-32 object-contain p-4" />
 
             {/* Vacancy Badge */}
             <div className="px-4 py-2 bg-blue-50 flex justify-between items-center">
@@ -14,8 +22,8 @@ const TaskCard = ({ task }) => {
                    
                     Task Available
                 </span>
-                <span className="bg-red-500 text-white rounded-full text-xs w-6 h-6 flex items-center justify-center">
-                {task_quantity}
+                <span className=" text-black  text-xs w-6 h-6 flex items-center justify-center">
+                {task_count}
                 </span>
             </div>
 
