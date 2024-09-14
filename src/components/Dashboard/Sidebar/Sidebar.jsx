@@ -10,10 +10,17 @@ import { NavLink } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import { FaCheckDouble, FaHome, FaPlus, FaTasks } from 'react-icons/fa'
+import useRole from '../../../hooks/useRole'
+import MenuItem from './Menu/MenuItem'
+import WorkerMenu from './Menu/WorkerMenu'
+import TaskCreatorMenu from './Menu/TaskCreatorMenu'
+import AdminMenu from './Menu/AdminMenu'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
-  const [isActive, setActive] = useState(false)
+  const [isActive, setActive] = useState(false);
+  const [role, isLoading] = useRole()
+  console.log(role);
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -72,71 +79,17 @@ const Sidebar = () => {
 
             {/*  Menu Items */}
             <nav>
-              {/* User Home */}
-              <NavLink
-                to='/dashboard'
-                end
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <FaHome  className='w-5 h-5' />
+             
 
-                <span className='mx-4 font-medium'>Home</span>
-              </NavLink>
+             {role === 'worker' && <WorkerMenu></WorkerMenu>}
 
-              {/* Add Room */}
-              <NavLink
-                to='/dashboard/tasklist'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <FaTasks className='w-5 h-5' />
 
-                <span className='mx-4 font-medium'>TaskList</span>
-              </NavLink>
-              {/* My Listing */}
-              <NavLink
-                to='/dashboard/submissions'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <FaCheckDouble className='w-5 h-5' />
+             {role === 'taskCreator' && <TaskCreatorMenu></TaskCreatorMenu>}
 
-                <span className='mx-4 font-medium'>My Submissions</span>
-              </NavLink>
-              <NavLink
-                to='/dashboard/add-task'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <FaPlus className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>Add New Task</span>
-              </NavLink>
-              <NavLink
-                to='/dashboard/my-tasks'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <FaTasks className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>My Tasks</span>
-              </NavLink>
+             {role === 'admin' && <AdminMenu></AdminMenu>}
+             
+              
+              
             </nav>
           </div>
         </div>
@@ -145,18 +98,9 @@ const Sidebar = () => {
           <hr />
 
           {/* Profile Menu */}
-          <NavLink
-            to='/dashboard/profile'
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-              }`
-            }
-          >
-            <FcSettings className='w-5 h-5' />
 
-            <span className='mx-4 font-medium'>Profile</span>
-          </NavLink>
+          <MenuItem label='Profile' address='/dashboard/profile' icon={FcSettings}></MenuItem>
+         
           <button
             onClick={logOut}
             className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'

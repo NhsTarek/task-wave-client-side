@@ -61,7 +61,7 @@ const Register = () => {
 
                                 }
 
-                                axiosCommon.post('/users', userInfo)
+                                axiosCommon.post('/user', userInfo)
                                 .then(res =>{
                                     if(res.data.insertedId){
                                         console.log("User profile info updated");
@@ -102,7 +102,7 @@ const Register = () => {
                     role : 'worker',
                     coin: 10
                 }
-                axiosCommon.post('/users', userInfo)
+                axiosCommon.post('/user', userInfo)
                 .then(res =>{
                     console.log(res.data);
                 })

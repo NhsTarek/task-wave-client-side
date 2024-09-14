@@ -15,6 +15,7 @@ import UserHome from "../Pages/Dashboard/Worker/UserHome/UserHome";
 import TaskDetails from "../Pages/TaskDetails/TaskDetails";
 import AddTasks from "../Pages/Dashboard/TaskCreator/AddTasks";
 import MyTasks from "../Pages/Dashboard/TaskCreator/MyTasks";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 
 
 
@@ -80,6 +81,10 @@ import MyTasks from "../Pages/Dashboard/TaskCreator/MyTasks";
          {
            path:"my-tasks",
            element:<MyTasks></MyTasks>
+         },
+         {
+           path:"manage-users",
+           element:<ManageUsers></ManageUsers>,
          }
          
       ]

@@ -49,7 +49,7 @@ const Login = () => {
                     role : 'worker',
                     coin: 10
                 }
-                axiosCommon.post('/users', userInfo)
+                axiosCommon.post('/user', userInfo)
                 .then(res =>{
                     console.log(res.data);
                 })
