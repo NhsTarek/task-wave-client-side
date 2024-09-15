@@ -1,6 +1,6 @@
 import {
-    createBrowserRouter,
-  } from "react-router-dom";
+  createBrowserRouter,
+} from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -16,6 +16,7 @@ import TaskDetails from "../Pages/TaskDetails/TaskDetails";
 import AddTasks from "../Pages/Dashboard/TaskCreator/AddTasks";
 import MyTasks from "../Pages/Dashboard/TaskCreator/MyTasks";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import AdminRoutes from "./AdminRoutes";
 
 
 
@@ -23,70 +24,76 @@ import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 
 
 
- export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        {
-            path: '/',
-            element: <Home></Home>
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>
 
-        },
-        {
-          path: '/login',
-          element: <Login></Login>,
-        },
-        {
-          path: '/register',
-          element: <Register></Register>,
-        },
-        {
-          path: '/secret',
-          element: <PrivateRoutes><Secret></Secret></PrivateRoutes>,
-        },
-       
-        
-        
-      ]
-    },
-    {
-      path:"/dashboard",
-      element:<Dashboard></Dashboard>,
-      children: [
-         {
-          path:"/dashboard",
-          element: <UserHome></UserHome>,
-         },
-         {
-          path:"tasklist",
-          element: <TaskList></TaskList>
-         },
-         {
-          path:"tasklist/taskdetails/:id",
-          element: <TaskDetails></TaskDetails>
-         },
-         {
-          path:"submissions",
-          element: <MySubmissions></MySubmissions>
-         },
-         {
-           path:"withdrawals",
-           element:<Withdrawals></Withdrawals>
-         },
-         {
-           path:"add-task",
-           element:<AddTasks></AddTasks>
-         },
-         {
-           path:"my-tasks",
-           element:<MyTasks></MyTasks>
-         },
-         {
-           path:"manage-users",
-           element:<ManageUsers></ManageUsers>,
-         }
-         
-      ]
-    }
-  ]);
+      },
+      {
+        path: '/login',
+        element: <Login></Login>,
+      },
+      {
+        path: '/register',
+        element: <Register></Register>,
+      },
+      {
+        path: '/secret',
+        element: <PrivateRoutes><Secret></Secret></PrivateRoutes>,
+      },
+
+
+
+    ]
+  },
+  {
+    path: "/dashboard",
+    element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <PrivateRoutes><UserHome></UserHome></PrivateRoutes>,
+      },
+      {
+        path: "tasklist",
+        element: <PrivateRoutes><TaskList></TaskList></PrivateRoutes>
+      },
+      {
+        path: "tasklist/taskdetails/:id",
+        element: <PrivateRoutes><TaskDetails></TaskDetails></PrivateRoutes>
+      },
+      {
+        path: "submissions",
+        element: <PrivateRoutes><MySubmissions></MySubmissions></PrivateRoutes>
+      },
+      {
+        path: "withdrawals",
+        element: <PrivateRoutes><Withdrawals></Withdrawals></PrivateRoutes>
+      },
+      {
+        path: "add-task",
+        element: <PrivateRoutes><AddTasks></AddTasks></PrivateRoutes>
+      },
+      {
+        path: "my-tasks",
+        element: <PrivateRoutes><MyTasks></MyTasks></PrivateRoutes>
+      },
+      {
+        path: "manage-users",
+        element:
+          <PrivateRoutes>
+            <AdminRoutes>
+              <ManageUsers>
+              </ManageUsers>
+            </AdminRoutes>
+          </PrivateRoutes>,
+      }
+
+    ]
+  }
+]);

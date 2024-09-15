@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import UserDataRow from "../TableRows/UserData";
 import Swal from "sweetalert2";
+import { FaSpinner } from "react-icons/fa";
 
 
 const ManageUsers = () => {
@@ -55,6 +56,15 @@ const {mutateAsync} = useMutation({
     }
   
   }
+  if(isLoading){
+    return (
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center text-4xl">
+                <FaSpinner className="animate-spin" style={{ fontSize: '3rem' }} />
+            </div>
+        </div>
+    );
+}
     return (
         <>
             <div className='container mx-auto px-4 sm:px-8'>
